@@ -1,6 +1,7 @@
 # API Consulta CPF
 
 ~ git clone https://github.com/liimadiego/teste_konsi-api_consult_cpf.git<br>
+~ cd teste_konsi-api_consult_cpf<br>
 ~ npm install
 
 ## Para iniciar o projeto
