@@ -5,14 +5,14 @@
 
 ## Para iniciar o projeto
 
-Criar um arquivo .env e inserir as credencias e URL base da API externa.
-~ docker compose up (para subir o RabbitMQ, Redis, Elasticsearch e Kibana)
-
-Para popular a fila do RabbitMQ utilize:
-~ npm run start_queue
-
-Para consumí-la e popular o Redis e o Elasticsearch
-~ npm run consume_queue
-
-Inicie a API
-~ npm run start
+Criar um arquivo .env e inserir as credencias e URL base da API externa.<br>
+~ docker compose up (para subir o RabbitMQ, Redis, Elasticsearch e Kibana)<br>
+<br>
+Para popular a fila do RabbitMQ utilize:<br>
+~ npm run start_queue<br>
+<br>
+Para consumí-la e popular o Redis e o Elasticsearch<br>
+~ npm run consume_queue<br>
+<br>
+Inicie a API<br>
+~ npm run start<br>
