@@ -1,0 +1,55 @@
+version: "3.12"
+
+services:
+  my-rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'my-rabbitmq'
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+      - rabbitmq_go_net
+
+  my-redis:
+    image: redis:alpine
+    container_name: 'my-redis'
+    ports:
+      - 6379:6379
+    volumes:
+      - ~/.docker-conf/redis/data/:/data
+    networks:
+      - rabbitmq_go_net
+
+  elasticsearch01:
+      image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
+      container_name: elasticsearch01
+      ports: 
+        - 9200:9200
+        - 9300:9300
+      environment:
+        discovery.type: single-node
+      networks:
+        - elastic
+    
+  kibana01:
+    image: docker.elastic.co/kibana/kibana:7.9.2
+    container_name: kibana01
+    ports:
+      - 5601:5601
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch01:9200
+      ELASTICSEARCH_HOSTS: http://elasticsearch01:9200
+    networks:
+      - elastic
+
+networks:
+  rabbitmq_go_net:
+    driver: bridge
+  elastic:
+    driver: bridge
