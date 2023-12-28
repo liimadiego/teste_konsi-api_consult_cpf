@@ -81,5 +81,7 @@ const getToken = async (): Promise<string> => {
       { noAck: true }
   );
   
+  await new Promise(resolve => setTimeout(resolve, 3500));
 
+  process.exit();
 })();

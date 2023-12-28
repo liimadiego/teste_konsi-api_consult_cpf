@@ -23,4 +23,7 @@ export async function populateQueue(){
 (async () => {
     const populate_queue: boolean = await populateQueue();
     console.log(populate_queue ? 'CPFs inseridos na Fila' : 'Algo deu errado!');
+
+    await new Promise(resolve => setTimeout(resolve, 3500));
+    process.exit();
 })();
