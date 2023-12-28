@@ -2,7 +2,7 @@ import { config } from 'dotenv';
 import axios from 'axios';
 import { createClient } from 'redis';
 import { connectMessageChannel } from '../messages/messageChannel';
-import { insertIntoElasticSearch } from './elasticsearch';
+import { getClient, insertIntoElasticSearch } from './elasticsearch';
 
 config();
 
@@ -58,8 +58,18 @@ const getToken = async (): Promise<string> => {
 
 (async() => {
   console.log('Script iniciado')
+  const elastic_search_client = await getClient();
+  let index_exists = await elastic_search_client.indices.exists({ index: 'consult_cpf' });
+  if(!index_exists){
+    await elastic_search_client.index({
+      index: 'consult_cpf',
+      type: 'type_consult_cpf',
+      body: {}
+    });
+    console.log('index criado')
+  }
   const message_channel = await connectMessageChannel();
-  
+
   await message_channel.consume(
       process.env.QUEUE_NAME,
       async (message) => {
@@ -70,4 +80,6 @@ const getToken = async (): Promise<string> => {
       },
       { noAck: true }
   );
+  
+
 })();

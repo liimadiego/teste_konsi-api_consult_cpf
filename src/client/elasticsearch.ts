@@ -8,7 +8,7 @@ interface BeneficiaryData {
   }>;
 }
 
-async function getClient(): Promise<elasticsearch.Client> {
+export async function getClient(): Promise<elasticsearch.Client> {
   const client = new elasticsearch.Client({
     host: 'localhost:9200'
   });
